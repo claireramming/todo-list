@@ -13,6 +13,15 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.newTask = this.newTask.bind(this)
     this.enterPress = this.enterPress.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+  
+  handleClick(id) {
+    this.setState(prevState => {
+      return {
+          todos : prevState.todos.filter(todo => todo.id !== id)
+      }
+    })
   }
 
   handleChange(id) {
@@ -57,7 +66,13 @@ class App extends React.Component {
   }
 
   render() {
-    const todoList = this.state.todos.map(todo => <TodoItem key={todo.id} data={todo} handleChange={this.handleChange}/>)
+    const todoList = this.state.todos.map(todo => 
+      <TodoItem 
+        key={todo.id} 
+        data={todo} 
+        handleChange={this.handleChange} 
+        handleClick={this.handleClick}
+      />)
 
     return (
       <div>

@@ -8,6 +8,9 @@ function TodoItem(props) {
                 checked={props.data.completed}
                 onChange = {() => props.handleChange(props.data.id)} />
             <p>{props.data.text}</p>
+            <input type="button" value='X'
+                onClick={() => props.handleClick(props.data.id)}
+                />
         </div>
 
     )
