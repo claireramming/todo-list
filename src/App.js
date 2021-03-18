@@ -7,9 +7,12 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      todos : todosData
+      todos : todosData,
+      newTask : ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.newTask = this.newTask.bind(this)
+    this.enterPress = this.enterPress.bind(this)
   }
 
   handleChange(id) {
@@ -29,6 +32,30 @@ class App extends React.Component {
     })
   }
 
+  newTask(event) {
+    this.setState({
+      newTask : event.target.value
+    })
+  }
+
+  enterPress(event) {
+    const nextId = this.state.todos.length + 1
+    console.log(this.state.todos.length)
+    if (event.key === 'Enter') {
+      this.setState(prevState => {
+        const newTodo = {
+          id : nextId,
+          text : event.target.value,
+          completed : false
+        }
+        return {
+          todos : [...prevState.todos, newTodo],
+          newTask : ''
+        }
+      })
+    }
+  }
+
   render() {
     const todoList = this.state.todos.map(todo => <TodoItem key={todo.id} data={todo} handleChange={this.handleChange}/>)
 
@@ -38,6 +65,16 @@ class App extends React.Component {
       <div className="todo-list">
         {todoList}
       </div>
+      <div>
+        <h1>Add a Todo!</h1>
+        <input 
+          type='text'
+          value={this.state.newTask}
+          placeholder='what do you want to do?'
+          onChange={this.newTask}
+          onKeyPress={this.enterPress}
+          /> 
+        </div>
       </div>
       )
   }
