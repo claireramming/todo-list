@@ -1,21 +1,14 @@
+body {
+  background-color: whitesmoke;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,11 +21,63 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todo-list {
+  background-color: white;
+  float: left;
+  margin: auto;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid #efefef;
+  box-shadow:
+  /* The top layer shadow */
+      0 1px 1px rgba(0,0,0,0.15),
+          /* The second layer */
+      0 10px 0 -5px #eee,
+          /* The second layer shadow */
+      0 10px 1px -4px rgba(0,0,0,0.15);
+  padding: 30px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 20px 0;
+  width: 70%;
+  border-bottom: 1px solid #cecece;
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+  font-size: 15px;
+  color: #333333;
+}
+
+.completed-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 20px 0;
+  width: 70%;
+  border-bottom: 1px solid #cecece;
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+  font-style: italic;
+  font-size: 15px;
+  color: #d3d3d3;
+  text-decoration: line-through;
+}
+
+.todo-item:hover {
+  background-color: #282c34;
+  color: white;
+}
+
+input[type=checkbox] {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+input[type=checkbox]:focus {
+  outline: 0;
 }
