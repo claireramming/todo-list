@@ -10,13 +10,9 @@ class App extends React.Component {
       todos : todosData,
       newTask : ''
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.newTask = this.newTask.bind(this)
-    this.enterPress = this.enterPress.bind(this)
-    this.handleClick = this.handleClick.bind(this)
   }
   
-  handleClick(id) {
+  handleClick = (id) => {
     this.setState(prevState => {
       return {
           todos : prevState.todos.filter(todo => todo.id !== id)
@@ -24,7 +20,7 @@ class App extends React.Component {
     })
   }
 
-  handleChange(id) {
+  handleChange = (id) => {
     this.setState(prevState => {
       const updateTodos = prevState.todos.map(todo => {
           if (todo.id === id) {
@@ -41,13 +37,13 @@ class App extends React.Component {
     })
   }
 
-  newTask(event) {
+  newTask = (event) => {
     this.setState({
       newTask : event.target.value
     })
   }
 
-  enterPress(event) {
+  enterPress = (event) => {
     const nextId = this.state.todos.length + 1
     console.log(this.state.todos.length)
     if (event.key === 'Enter') {
