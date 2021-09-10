@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import TodoItem from './components/TodoItem'
 import todosData from './todosData'
 
-class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      todos : todosData,
-      newTask : ''
-    }
-  }
+function App() {
+  const [ todos, setTodos ] = useState(todosData)
+  const [ newTask, setNewTask ] = useState()
+  const todoList = todos.map(todo => 
+    <TodoItem 
+      key={todo.id} 
+      data={todo} 
+      handleChange={handleChange} 
+      handleClick={handleClick}
+    />)
   
-  handleClick = (id) => {
-    this.setState(prevState => {
-      return {
-          todos : prevState.todos.filter(todo => todo.id !== id)
-      }
-    })
+  function handleClick(id) {
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
   }
 
-  handleChange = (id) => {
-    this.setState(prevState => {
-      const updateTodos = prevState.todos.map(todo => {
+  function updateNewTask(event) {setNewTask(event.target.value)}
+
+  function handleChange(id) {
+    setTodos(prevTodos => {
+      const updateTodos = prevTodos.map(todo => {
           if (todo.id === id) {
             return {
               ...todo,
@@ -32,43 +32,27 @@ class App extends React.Component {
           return todo
       })
       return {
-        todos : updateTodos
+        updateTodos
       }
     })
   }
 
-  newTask = (event) => {
-    this.setState({
-      newTask : event.target.value
-    })
-  }
-
-  enterPress = (event) => {
-    const nextId = this.state.todos.length + 1
-    console.log(this.state.todos.length)
+  function addNewTask(event) {
+    const nextId = todos.length + 1
+    console.log(todos.length)
     if (event.key === 'Enter') {
-      this.setState(prevState => {
+      setTodos(prevTodos => {
         const newTodo = {
           id : nextId,
           text : event.target.value,
           completed : false
         }
-        return {
-          todos : [...prevState.todos, newTodo],
-          newTask : ''
+        return [...prevTodos, newTodo]
         }
-      })
+      )
+      setNewTask('')
     }
   }
-
-  render() {
-    const todoList = this.state.todos.map(todo => 
-      <TodoItem 
-        key={todo.id} 
-        data={todo} 
-        handleChange={this.handleChange} 
-        handleClick={this.handleClick}
-      />)
 
     return (
       <div>
@@ -80,15 +64,14 @@ class App extends React.Component {
         <h1>Add a Todo!</h1>
         <input 
           type='text'
-          value={this.state.newTask}
+          value={newTask}
           placeholder='what do you want to do?'
-          onChange={this.newTask}
-          onKeyPress={this.enterPress}
+          onChange={updateNewTask}
+          onKeyPress={addNewTask}
           /> 
         </div>
       </div>
       )
-  }
 }
 
 export default App;
