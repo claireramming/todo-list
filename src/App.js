@@ -4,8 +4,9 @@ import TodoItem from './components/TodoItem'
 
 function App() {
   const origTodos = JSON.parse(localStorage.getItem('todos'))
+  console.log(origTodos)
   const [ todos, setTodos ] = useState(origTodos ? origTodos : [])
-  const [lastTaskId, setLastTaskId] = useState(origTodos.at(-1).id)
+  const [lastTaskId, setLastTaskId] = useState(origTodos === [] ? origTodos.at(-1).id : 0)
   const [ newTask, setNewTask ] = useState()
   const todoList = todos.map(todo => 
     <TodoItem 
