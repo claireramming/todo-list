@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 import TodoItem from './components/TodoItem'
-import todosData from './todosData'
 
 function App() {
-  const [ todos, setTodos ] = useState(todosData)
+  const origTodos = JSON.parse(localStorage.getItem('todos'))
+  const [ todos, setTodos ] = useState(origTodos ? origTodos : [])
+  const [lastTaskId, setLastTaskId] = useState(origTodos.at(-1).id)
   const [ newTask, setNewTask ] = useState()
   const todoList = todos.map(todo => 
     <TodoItem 
@@ -15,7 +16,11 @@ function App() {
     />)
   
   function handleClick(id) {
-    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
+    setTodos(prevTodos => {
+      const newTodos = prevTodos.filter(todo => todo.id !== id)
+      localStorage.setItem('todos', JSON.stringify(newTodos))
+      return newTodos
+    })
   }
 
   function updateNewTask(event) {setNewTask(event.target.value)}
@@ -31,6 +36,7 @@ function App() {
           } else { return todo }
           
       })
+      console.log(updateTodos)
       return {
         updateTodos
       }
@@ -38,8 +44,7 @@ function App() {
   }
 
   function addNewTask(event) {
-    const nextId = todos.length + 1
-    console.log(todos.length)
+    const nextId = lastTaskId + 1
     if (event.key === 'Enter') {
       setTodos(prevTodos => {
         const newTodo = {
@@ -47,7 +52,10 @@ function App() {
           text : event.target.value,
           completed : false
         }
-        return [...prevTodos, newTodo]
+        setLastTaskId(nextId)
+        const newTodos = [...prevTodos, newTodo]
+        localStorage.setItem('todos', JSON.stringify(newTodos))
+        return newTodos
         }
       )
       setNewTask('')
@@ -61,7 +69,7 @@ function App() {
         <input 
           className='new-task'
           type='text'
-          value={newTask}
+          value={newTask || ''}
           placeholder='what do you want to do?'
           onChange={updateNewTask}
           onKeyPress={addNewTask}
