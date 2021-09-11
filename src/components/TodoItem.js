@@ -1,16 +1,18 @@
 import React from "react"
+import Checkbox from './Checkbox'
 
 function TodoItem(props) {
     const itemStyle = props.data.completed ? "completed-item" : "todo-item"
     return (
         <div className={itemStyle}>
-            <input type="checkbox" 
+            <Checkbox 
                 checked={props.data.completed}
-                onChange = {() => props.handleChange(props.data.id)} />
+                handleChange = {props.handleChange}
+                id = {props.data.id} />
             <p>{props.data.text}</p>
-            <input type="button" value='X'
+            <button 
                 onClick={() => props.handleClick(props.data.id)}
-                />
+            >X</button>
         </div>
 
     )

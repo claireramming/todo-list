@@ -28,8 +28,8 @@ function App() {
               ...todo,
               completed : !todo.completed
             }
-          }
-          return todo
+          } else { return todo }
+          
       })
       return {
         updateTodos
@@ -55,21 +55,17 @@ function App() {
   }
 
     return (
-      <div>
-      <header className="App-header">Todo List</header>
       <div className="todo-list">
+        <h1 className="App-header">Todo List</h1>
         {todoList}
-      </div>
-      <div>
-        <h1>Add a Todo!</h1>
         <input 
+          className='new-task'
           type='text'
           value={newTask}
           placeholder='what do you want to do?'
           onChange={updateNewTask}
           onKeyPress={addNewTask}
           /> 
-        </div>
       </div>
       )
 }
