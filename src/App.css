@@ -74,7 +74,6 @@ body {
   opacity: 0;         
 }
 
-.checkbox__input input[type=checkbox]:focus + svg,
 .checkbox__input input[type=checkbox]:hover + svg {
   border: 1px solid limegreen;
   border-radius: 100%;

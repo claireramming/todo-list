@@ -6,7 +6,7 @@ function App() {
   const origTodos = JSON.parse(localStorage.getItem('todos'))
   console.log(origTodos)
   const [ todos, setTodos ] = useState(origTodos ? origTodos : [])
-  const [lastTaskId, setLastTaskId] = useState(origTodos === [] ? origTodos.at(-1).id : 0)
+  const [lastTaskId, setLastTaskId] = useState(origTodos.length > 0 ? origTodos.at(-1).id : 0)
   const [ newTask, setNewTask ] = useState()
   const todoList = todos.map(todo => 
     <TodoItem 
@@ -35,12 +35,9 @@ function App() {
               completed : !todo.completed
             }
           } else { return todo }
-          
       })
-      console.log(updateTodos)
-      return {
-        updateTodos
-      }
+      localStorage.setItem('todos', JSON.stringify(updateTodos))
+      return updateTodos
     })
   }
 
