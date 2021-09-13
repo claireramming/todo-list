@@ -35,9 +35,6 @@ body {
 
 .todo-item,
 .completed-item {
-  display: grid;
-  grid-template-columns: 10% 80% 10%;
-  grid-column-gap: 0.5em;
   margin: 0 auto;
   font-size: 1rem;
   color: #333333;
@@ -49,10 +46,16 @@ body {
   transition: font-weight .2s, color .2s;
 }
 
+.update-task,
 .todo-item p,
 .completed-item p {
+  margin: 0 .5em;
   width: 100%;
   align-self: center;
+  font-size: 1rem;
+  color: #333333;
+  font-weight: 100;
+  border: none;
 }
 
 .completed-item p {
