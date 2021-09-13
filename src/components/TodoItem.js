@@ -13,7 +13,7 @@ function TodoItem(props) {
             <p 
                 onClick={()=> props.handleEditTask(props.data.id)} 
                 hidden={props.data.edit}>{props.data.text}</p>
-            <input 
+            <input
                 type='text'
                 id={props.data.aid}
                 hidden={!props.data.edit} 

@@ -17,6 +17,25 @@ function App() {
       handleUpdate={updateTask}
       saveTask={saveTask}
     />)
+
+  function updateTaskState(condition, outputOnTrue, outputOnFalse) {
+    setTodos(prevTodos => {
+      const updateTodos = prevTodos.map(todo => {
+        if (todo.id === condition) {
+          return {
+            ...todo,
+            ...outputOnTrue
+          }
+        } else {
+          return {
+            ...todo,
+            ...outputOnFalse
+          }
+        }
+      })
+      return updateTodos
+    })
+  }
   
   function removeTask(id) {
     setTodos(prevTodos => {
@@ -26,43 +45,17 @@ function App() {
     })
   }
 
-  function editTask(id) {
-    setTodos(prevTodos => {
-      const updateTodos = prevTodos.map(todo => {
-          if (todo.id === id) {
-            return {
-              ...todo,
-              edit : true
-            }
-          } else { return {
-            ...todo,
-            edit: false
-          }
-        }
-      })
-      return updateTodos
-    })
-  }
+  function editTask(id) { updateTaskState(id, {edit:true}, {edit:false}) }
 
-  function updateTask(event, id) {
-    setTodos(prevTodos => {
-      const updateTodos = prevTodos.map(todo => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            text: event.target.value
-          }
-        } else { return todo }
-      })
-      localStorage.setItem('todos', JSON.stringify(updateTodos))
-      return updateTodos
-    })
+  function updateTask(event, id) { 
+    updateTaskState(id, {text: event.target.value}, {}) 
+    localStorage.setItem('todos', JSON.stringify(todos))
   }
 
 
   function updateNewTask(event) {setNewTask(event.target.value)}
 
-  function handleChange(id) {
+  function handleChange(id) { 
     setTodos(prevTodos => {
       const updateTodos = prevTodos.map(todo => {
           if (todo.id === id) {
@@ -84,7 +77,8 @@ function App() {
         const newTodo = {
           id : nextId,
           text : event.target.value,
-          completed : false
+          completed : false,
+          edit : false
         }
         setLastTaskId(nextId)
         const newTodos = [...prevTodos, newTodo]
@@ -101,19 +95,13 @@ function App() {
       removeTask(task.id)
     }
     if (event.key === 'Enter') {
-      setTodos(prevTodos => {
-        const updateTodos = prevTodos.map(todo => {
-          if (todo.id === task.id) {
-            return {
-              ...todo,
-              text: event.target.value,
-              edit: false
-            }
-          } else { return todo }
-        })
-        localStorage.setItem('todos', JSON.stringify(updateTodos))
-        return updateTodos
-      })
+      updateTaskState(
+        task.id, 
+        {text: event.target.value,
+          edit: false},
+        {}
+        )
+        localStorage.setItem('todos', JSON.stringify(todos))
     }
   }
 
