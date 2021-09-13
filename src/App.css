@@ -46,9 +46,15 @@ body {
   transition: font-weight .2s, color .2s;
 }
 
+.todo-item p:hover,
+.completed-item p:hover {
+  border: 1px #333333 solid;
+}
+
 .update-task,
 .todo-item p,
 .completed-item p {
+  font-family: Roboto, sans-serif;
   margin: 0 .5em;
   width: 100%;
   align-self: center;
@@ -56,6 +62,11 @@ body {
   color: #333333;
   font-weight: 100;
   border: none;
+  padding: 0;
+}
+
+.update-task:focus {
+  outline: 0;
 }
 
 .completed-item p {

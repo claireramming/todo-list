@@ -1,8 +1,15 @@
-import React from "react"
+import React, {useEffect, useRef} from "react"
 import Checkbox from './Checkbox'
 
 function TodoItem(props) {
+    const inputRef = useRef()
     const itemStyle = props.data.completed ? "completed-item" : "todo-item"
+
+    useEffect(() => {
+        if (inputRef && inputRef.current && props.data.edit === true) {
+          inputRef.current.focus();
+        }
+      }, [props.data.edit]);
 
     return (
         <div className={itemStyle}>
@@ -14,6 +21,7 @@ function TodoItem(props) {
                 onClick={()=> props.handleEditTask(props.data.id)} 
                 hidden={props.data.edit}>{props.data.text}</p>
             <input
+                ref={inputRef}
                 type='text'
                 id={props.data.aid}
                 hidden={!props.data.edit} 

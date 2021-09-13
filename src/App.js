@@ -52,7 +52,6 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos))
   }
 
-
   function updateNewTask(event) {setNewTask(event.target.value)}
 
   function handleChange(id) { 
@@ -97,8 +96,8 @@ function App() {
     if (event.key === 'Enter') {
       updateTaskState(
         task.id, 
-        {text: event.target.value,
-          edit: false},
+        { text: event.target.value,
+          edit: false },
         {}
         )
         localStorage.setItem('todos', JSON.stringify(todos))
