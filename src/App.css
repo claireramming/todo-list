@@ -38,7 +38,8 @@ body {
   margin: 0 auto;
   font-size: 1rem;
   color: #333333;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   width: 95%;
   border-bottom: 1px solid #cecece;
   text-align: left;
@@ -50,23 +51,30 @@ body {
   border: 1px #333333 solid;
 }
 
+span.hidden {
+  display: none;
+}
+
+span,
 .update-task,
 .todo-item p,
 .completed-item p {
   font-family: Roboto, sans-serif;
-  margin: 0 .5em;
-  width: 100%;
+  border: none;
+  justify-self: start;
+  /* margin: 0 .5em; */
   align-self: center;
   font-size: 1rem;
   color: #333333;
   font-weight: 100;
-  border: none;
-  padding: .25em 0;
+  padding: .25em .25em;
+  min-width: 10%;
   min-height: 1em;
 }
 
 .update-task:focus {
   outline: 0;
+  padding: .25em .25em;
 }
 
 .completed-item p, 

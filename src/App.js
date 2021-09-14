@@ -16,6 +16,7 @@ function App() {
       handleEditTask={editTask}
       handleUpdate={updateTask}
       saveTask={saveTask}
+      onOutsideClick={clickOutsideTask}
     />)
 
   function updateTaskState(condition, outputOnTrue, outputOnFalse) {
@@ -33,6 +34,7 @@ function App() {
           }
         }
       })
+      localStorage.setItem('todos', JSON.stringify(updateTodos))
       return updateTodos
     })
   }
@@ -46,11 +48,13 @@ function App() {
   }
 
   function editTask(id) { updateTaskState(id, {edit:true}, {edit:false}) }
-
-  function updateTask(event, id) { 
-    updateTaskState(id, {text: event.target.value}, {}) 
-    localStorage.setItem('todos', JSON.stringify(todos))
+  
+  function clickOutsideTask(e, id) { 
+    console.log(id)
+    updateTaskState(id, {edit:false}, {}) 
   }
+
+  function updateTask(event, id) { updateTaskState(id, {text: event.target.value}, {}) }
 
   function updateNewTask(event) {setNewTask(event.target.value)}
 
